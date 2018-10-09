@@ -9,6 +9,7 @@ import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.JobTrigger;
+import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 
 import net.ozero.jobdispatcherpractice.services.AlarmJobService;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 firebaseJobDispatcher.newJobBuilder()
                 .setService(AlarmJobService.class)
                 .setTag(JOB_TAG)
+                .setLifetime(Lifetime.FOREVER)
                 .setTrigger(Trigger.executionWindow(TIMEOUT_IN_SECONDS, TIMEOUT_IN_SECONDS))
                 .build();
 
