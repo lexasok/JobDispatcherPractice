@@ -2,6 +2,7 @@ package net.ozero.jobdispatcherpractice;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -24,12 +25,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.i(getClass().getName(), "onCreate");
     }
 
 
     public void setAlarmButtonClicked(View view) {
 
         setJob();
+
+        Log.i(getClass().getName(), "job set");
     }
 
     private void setJob() {
