@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JobDispatcherPractice</string>
+    <string name="button_title_set_alarm">set alarm</string>
 </resources>
