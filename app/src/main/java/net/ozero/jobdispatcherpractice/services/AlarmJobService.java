@@ -30,17 +30,15 @@ public class AlarmJobService extends JobService {
         assert notificationManager != null;
         notificationManager.notify(1, notification);
 
-        jobFinished(job, true);
+        jobFinished(job, false);
 
-        return true;
+        return false;
     }
 
     @Override
     public boolean onStopJob(JobParameters job) {
 
         Log.i(getClass().getName(), "onStopJob");
-        return false;
-
-
+        return true;
     }
 }

@@ -1,5 +1,6 @@
-package net.ozero.jobdispatcherpractice;
+package net.ozero.jobdispatcherpractice.services.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +12,15 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 
+import net.ozero.jobdispatcherpractice.R;
 import net.ozero.jobdispatcherpractice.services.AlarmJobService;
+import net.ozero.jobdispatcherpractice.services.AlarmService;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String JOB_TAG = "alarm_job";
-    public static final int TIMEOUT_IN_SECONDS = 180;
+    public static final int TIMEOUT_IN_SECONDS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setAlarmButtonClicked(View view) {
 
-        setJob();
+        Intent intent = new Intent(this, AlarmService.class);
+        startService(intent);
 
-        Log.i(getClass().getName(), "job set");
+//        setJob();
+
     }
 
     private void setJob() {
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 .setService(AlarmJobService.class)
                 .setTag(JOB_TAG)
                 .setLifetime(Lifetime.FOREVER)
-                .setTrigger(Trigger.executionWindow(TIMEOUT_IN_SECONDS, TIMEOUT_IN_SECONDS + 10))
+                .setTrigger(Trigger.executionWindow(TIMEOUT_IN_SECONDS, TIMEOUT_IN_SECONDS + 1))
                 .build();
 
         firebaseJobDispatcher.mustSchedule(job);
