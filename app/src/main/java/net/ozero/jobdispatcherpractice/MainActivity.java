@@ -17,7 +17,7 @@ import net.ozero.jobdispatcherpractice.services.AlarmJobService;
 public class MainActivity extends AppCompatActivity {
 
     public static final String JOB_TAG = "alarm_job";
-    public static final int TIMEOUT_IN_SECONDS = 100;
+    public static final int TIMEOUT_IN_SECONDS = 180;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
