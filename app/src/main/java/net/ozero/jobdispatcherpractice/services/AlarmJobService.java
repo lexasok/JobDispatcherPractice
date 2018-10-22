@@ -25,17 +25,18 @@ public class AlarmJobService extends JobService {
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        assert notificationManager != null;
-        notificationManager.notify(1, notification);
 
-        jobFinished(job, false);
-
-        return false;
+        if (notificationManager != null) {
+            notificationManager.notify(1, notification);
+            jobFinished(job, false);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
     public boolean onStopJob(JobParameters job) {
-
         Log.i(getClass().getName(), "onStopJob");
         return true;
     }
