@@ -28,13 +28,11 @@ public class AlarmJobService extends JobService {
             int seconds = extras.getInt(MainActivity.EXTRA_TIME);
             String setInTime = extras.getString(MainActivity.EXTRA_SET_IN_TIME);
 
-            String message = getMessage(id, seconds, setInTime);
-
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("Title")
-                            .setContentText(message);
+                            .setContentTitle(getTitle(id, seconds))
+                            .setContentText(getMessage(setInTime));
             Notification notification = builder.build();
 
             NotificationManager notificationManager =
@@ -60,7 +58,10 @@ public class AlarmJobService extends JobService {
         return true;
     }
 
-    private String getMessage(int id, int seconds, String setInTime) {
-        return "ID: " + id + "; DELAY: " + seconds + " sec; " + "Set in time: " + setInTime;
+    private String getMessage(String setInTime) {
+        return "Set in time: " + setInTime;
+    }
+    private String getTitle(int id, int delay) {
+        return "ID: " + id + "; DELAY: " + delay + " sec";
     }
 }
