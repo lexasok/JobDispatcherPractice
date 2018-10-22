@@ -1,8 +1,10 @@
 package net.ozero.jobdispatcherpractice.services;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -14,20 +16,14 @@ import com.firebase.jobdispatcher.Trigger;
 
 import net.ozero.jobdispatcherpractice.services.activities.MainActivity;
 
-public class AlarmService extends Service {
+public class AlarmService extends IntentService {
     public AlarmService() {
+        super("alarmService");
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        setAlarm(intent.getIntExtra(MainActivity.EXTRA_TIME, 0));
-        return START_STICKY;
-    }
+    protected void onHandleIntent(@Nullable Intent intent) {
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void setAlarm(int seconds) {

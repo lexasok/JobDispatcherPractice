@@ -3,6 +3,7 @@
     package="net.ozero.jobdispatcherpractice">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -34,7 +35,7 @@
         <service
             android:name=".services.AlarmService"
             android:enabled="true"
-            android:process=":alarmProcess"/>
+            />
     </application>
 
 </manifest>

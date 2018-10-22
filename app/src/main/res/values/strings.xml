@@ -1,6 +1,7 @@
 <resources>
+    <!--App-->
     <string name="app_name">JobDispatcherPractice</string>
-    <string name="app_name_not_alarm">Notepad</string>
-    <string name="button_title_set_10_sec_alarm">set 10 sec alarm</string>
-    <string name="button_title_set_60_sec_alarm">set 1 min alarm</string>
+
+    <!--Buttons-->
+    <string name="title_button_set_alarm">set alarm</string>
 </resources>
