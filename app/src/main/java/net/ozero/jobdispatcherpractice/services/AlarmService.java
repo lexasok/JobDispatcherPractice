@@ -35,7 +35,7 @@ public class AlarmService extends Service {
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(
                 new GooglePlayDriver(this));
 
-
+        firebaseJobDispatcher.cancelAll();
 
         Job job =
                 firebaseJobDispatcher.newJobBuilder()

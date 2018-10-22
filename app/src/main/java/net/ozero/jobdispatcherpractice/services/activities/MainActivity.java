@@ -16,45 +16,37 @@ import net.ozero.jobdispatcherpractice.R;
 import net.ozero.jobdispatcherpractice.services.AlarmJobService;
 import net.ozero.jobdispatcherpractice.services.AlarmService;
 
-
 public class MainActivity extends AppCompatActivity {
 
     public static final String JOB_TAG = "alarm_job";
-    public static final int TIMEOUT_IN_SECONDS = 5;
+    public static final int TIMEOUT_IN_SECONDS = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Log.i(getClass().getName(), "onCreate");
     }
 
-
     public void setAlarmButtonClicked(View view) {
-
-        Intent intent = new Intent(this, AlarmService.class);
-        startService(intent);
-
-//        setJob();
-
+        setJobHere();
     }
 
-    private void setJob() {
+    private  void  setJobInService() {
+        Intent intent = new Intent(this, AlarmService.class);
+        startService(intent);
+    }
 
-        FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(
-                new GooglePlayDriver(this));
-
-
-
+    private void setJobHere() {
+        FirebaseJobDispatcher firebaseJobDispatcher =
+                new FirebaseJobDispatcher(new GooglePlayDriver(this));
         Job job =
                 firebaseJobDispatcher.newJobBuilder()
-                .setService(AlarmJobService.class)
-                .setTag(JOB_TAG)
-                .setLifetime(Lifetime.FOREVER)
-                .setTrigger(Trigger.executionWindow(TIMEOUT_IN_SECONDS, TIMEOUT_IN_SECONDS + 1))
-                .build();
-
+                        .setService(AlarmJobService.class)
+                        .setTag(JOB_TAG)
+                        .setLifetime(Lifetime.FOREVER)
+                        .setTrigger(Trigger.executionWindow(TIMEOUT_IN_SECONDS, TIMEOUT_IN_SECONDS + 1))
+                        .build();
         firebaseJobDispatcher.mustSchedule(job);
     }
 }
