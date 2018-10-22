@@ -59,7 +59,7 @@ public class AlarmJobService extends JobService {
     }
 
     private String getMessage(String setInTime) {
-        return "Set in time: " + setInTime;
+        return "Set in: " + setInTime;
     }
     private String getTitle(int id, int delay) {
         return "ID: " + id + "; DELAY: " + delay + " sec";
