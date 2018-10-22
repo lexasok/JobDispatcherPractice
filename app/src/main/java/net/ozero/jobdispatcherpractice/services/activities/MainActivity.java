@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 seconds = 60;
                 break;
         }
-        setJobHere(seconds);
+        setJobInService(seconds);
     }
 
     private  void  setJobInService(int seconds) {
