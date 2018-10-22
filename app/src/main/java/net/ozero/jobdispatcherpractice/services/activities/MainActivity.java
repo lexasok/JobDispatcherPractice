@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, getMessage(id, seconds));
         startService(intent);
 
-        Toast.makeText(this, "Alarm set, id: " + id, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getMessage(id, seconds), Toast.LENGTH_LONG).show();
     }
 
     private void setJobHere(int seconds) {

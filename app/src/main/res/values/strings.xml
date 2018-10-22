@@ -3,7 +3,7 @@
     <string name="app_name">JobDispatcherPractice</string>
 
     <!--Buttons-->
-    <string name="title_button_set_alarm">set alarm id: </string>
+    <string name="title_button_set_alarm">set alarm, id: </string>
 
     <!--Hints-->
     <string name="hint_delay_input">Input delay in seconds</string>
