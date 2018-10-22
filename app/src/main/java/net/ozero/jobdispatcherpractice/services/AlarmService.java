@@ -1,10 +1,8 @@
 package net.ozero.jobdispatcherpractice.services;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 

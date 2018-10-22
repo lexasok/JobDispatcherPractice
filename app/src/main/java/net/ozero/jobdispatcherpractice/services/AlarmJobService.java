@@ -12,10 +12,6 @@ import com.firebase.jobdispatcher.JobService;
 import net.ozero.jobdispatcherpractice.R;
 import net.ozero.jobdispatcherpractice.services.activities.MainActivity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class AlarmJobService extends JobService {
 
     @Override
