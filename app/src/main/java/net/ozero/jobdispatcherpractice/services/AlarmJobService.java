@@ -31,7 +31,8 @@ public class AlarmJobService extends JobService {
             jobFinished(job, false);
             return false;
         } else {
-            return true;
+            jobFinished(job, true);
+            return false;
         }
     }
 
