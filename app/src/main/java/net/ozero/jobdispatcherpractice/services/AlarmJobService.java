@@ -10,6 +10,10 @@ import com.firebase.jobdispatcher.JobService;
 
 import net.ozero.jobdispatcherpractice.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AlarmJobService extends JobService {
 
     @Override
@@ -40,5 +44,13 @@ public class AlarmJobService extends JobService {
     public boolean onStopJob(JobParameters job) {
         Log.i(getClass().getName(), "onStopJob");
         return true;
+    }
+
+    private String getMessage(int id, int seconds) {
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
+        String dateStr = dateFormat.format(date);
+
+        return "ID: " + id + "; DELAY: " + seconds + " sec; " + "Set in: " + dateStr;
     }
 }

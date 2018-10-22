@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     //extras
     public static final String EXTRA_TIME = "seconds";
     public static final String EXTRA_ID = "id";
-    public static final String EXTRA_MESSAGE = "message";
+    public static final String EXTRA_SET_IN_TIME = "set_in_time";
     //tags
-    public static final String JOB_TAG = "alarm_job";
+    public static final String JOB_TAG = "alarm_job_ID_";
     //simple constants
     public static final int TIMEOUT_IN_SECONDS = 5;
 
@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmService.class);
         intent.putExtra(EXTRA_ID, id);
         intent.putExtra(EXTRA_TIME, seconds);
-        intent.putExtra(EXTRA_MESSAGE, getMessage(id, seconds));
         startService(intent);
 
         Toast.makeText(this, getMessage(id, seconds), Toast.LENGTH_LONG).show();
