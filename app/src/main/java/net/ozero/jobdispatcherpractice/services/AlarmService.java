@@ -31,11 +31,9 @@ public class AlarmService extends Service {
     }
 
     private void setAlarm(int seconds) {
-        FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(
-                new GooglePlayDriver(this));
-
+        FirebaseJobDispatcher firebaseJobDispatcher =
+                new FirebaseJobDispatcher(new GooglePlayDriver(this));
         firebaseJobDispatcher.cancelAll();
-
         Job job =
                 firebaseJobDispatcher.newJobBuilder()
                         .setService(AlarmJobService.class)
@@ -44,9 +42,7 @@ public class AlarmService extends Service {
                         .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                         .setTrigger(Trigger.executionWindow(seconds, seconds + MainActivity.TIMEOUT_IN_SECONDS))
                         .build();
-
         firebaseJobDispatcher.mustSchedule(job);
-
         Log.i(getClass().getName(), "alarm set");
     }
 }
