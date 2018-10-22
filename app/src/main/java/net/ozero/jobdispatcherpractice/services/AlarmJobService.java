@@ -2,6 +2,7 @@ package net.ozero.jobdispatcherpractice.services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
 import net.ozero.jobdispatcherpractice.R;
+import net.ozero.jobdispatcherpractice.services.activities.MainActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,20 +22,32 @@ public class AlarmJobService extends JobService {
     public boolean onStartJob(JobParameters job) {
         Log.i(getClass().getName(), "onStartJob");
 
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Title")
-                        .setContentText("Notification text");
-        Notification notification = builder.build();
+        Bundle extras = job.getExtras();
+        if (extras != null) {
+            int id = extras.getInt(MainActivity.EXTRA_ID);
+            int seconds = extras.getInt(MainActivity.EXTRA_TIME);
+            String setInTime = extras.getString(MainActivity.EXTRA_SET_IN_TIME);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            String message = getMessage(id, seconds, setInTime);
 
-        if (notificationManager != null) {
-            notificationManager.notify(1, notification);
-            jobFinished(job, false);
-            return false;
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("Title")
+                            .setContentText(message);
+            Notification notification = builder.build();
+
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            if (notificationManager != null) {
+                notificationManager.notify(id, notification);
+                jobFinished(job, false);
+                return false;
+            } else {
+                jobFinished(job, true);
+                return false;
+            }
         } else {
             jobFinished(job, true);
             return false;
@@ -46,11 +60,7 @@ public class AlarmJobService extends JobService {
         return true;
     }
 
-    private String getMessage(int id, int seconds) {
-        Date date = new Date(System.currentTimeMillis());
-        DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
-        String dateStr = dateFormat.format(date);
-
-        return "ID: " + id + "; DELAY: " + seconds + " sec; " + "Set in: " + dateStr;
+    private String getMessage(int id, int seconds, String setInTime) {
+        return "ID: " + id + "; DELAY: " + seconds + " sec; " + "Set in time: " + setInTime;
     }
 }

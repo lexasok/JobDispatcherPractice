@@ -48,6 +48,7 @@ public class AlarmService extends IntentService {
                         .setService(AlarmJobService.class)
                         .setTag(MainActivity.JOB_TAG + id)
                         .setLifetime(Lifetime.FOREVER)
+                        .setExtras(extras)
                         .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                         .setTrigger(Trigger.executionWindow(seconds, seconds + MainActivity.TIMEOUT_IN_SECONDS))
                         .build();
