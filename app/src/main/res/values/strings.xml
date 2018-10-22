@@ -10,4 +10,7 @@
 
     <!--Text-->
     <string name="base_delay">10</string>
+
+    <!--IDs-->
+    <string name="default_notification_channel_id">job_practice_notification_channel</string>
 </resources>
