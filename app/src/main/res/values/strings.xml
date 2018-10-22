@@ -4,4 +4,10 @@
 
     <!--Buttons-->
     <string name="title_button_set_alarm">set alarm</string>
+
+    <!--Hints-->
+    <string name="hint_delay_input">Input delay in seconds</string>
+
+    <!--Text-->
+    <string name="base_delay">10</string>
 </resources>
