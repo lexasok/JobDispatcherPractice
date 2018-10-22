@@ -19,7 +19,7 @@ import net.ozero.jobdispatcherpractice.services.AlarmService;
 public class MainActivity extends AppCompatActivity {
 
     public static final String JOB_TAG = "alarm_job";
-    public static final int TIMEOUT_IN_SECONDS = 30;
+    public static final int TIMEOUT_IN_SECONDS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAlarmButtonClicked(View view) {
-        setJobHere();
+        int seconds = 0;
+
+        switch (view.getId()) {
+            case R.id.buttonSet10secAlarm:
+                seconds = 10;
+                break;
+            case R.id.buttonSet1MinAlarm:
+                seconds = 60;
+                break;
+        }
+        setJobHere(seconds);
     }
 
     private  void  setJobInService() {
@@ -37,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
     }
 
-    private void setJobHere() {
+    private void setJobHere(int seconds) {
         FirebaseJobDispatcher firebaseJobDispatcher =
                 new FirebaseJobDispatcher(new GooglePlayDriver(this));
         Job job =
@@ -45,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
                         .setService(AlarmJobService.class)
                         .setTag(JOB_TAG)
                         .setLifetime(Lifetime.FOREVER)
-                        .setTrigger(Trigger.executionWindow(TIMEOUT_IN_SECONDS, TIMEOUT_IN_SECONDS + 1))
+                        .setTrigger(Trigger.executionWindow(seconds, seconds + TIMEOUT_IN_SECONDS))
                         .build();
         firebaseJobDispatcher.mustSchedule(job);
+        Log.i(getClass().getName(), "alarm set");
     }
 }

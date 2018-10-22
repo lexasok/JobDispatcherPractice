@@ -14,7 +14,6 @@ public class AlarmJobService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters job) {
-
         Log.i(getClass().getName(), "onStartJob");
 
         NotificationCompat.Builder builder =
@@ -22,7 +21,6 @@ public class AlarmJobService extends JobService {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Title")
                         .setContentText("Notification text");
-
         Notification notification = builder.build();
 
         NotificationManager notificationManager =
