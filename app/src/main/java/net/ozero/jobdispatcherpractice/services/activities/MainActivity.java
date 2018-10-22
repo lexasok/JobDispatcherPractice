@@ -10,6 +10,7 @@ import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
 import net.ozero.jobdispatcherpractice.R;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String JOB_TAG = "alarm_job";
     public static final int TIMEOUT_IN_SECONDS = 5;
+    public static final String EXTRA_TIME = "seconds";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         setJobHere(seconds);
     }
 
-    private  void  setJobInService() {
+    private  void  setJobInService(int seconds) {
         Intent intent = new Intent(this, AlarmService.class);
+        intent.putExtra(EXTRA_TIME, seconds);
         startService(intent);
     }
 
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         .setService(AlarmJobService.class)
                         .setTag(JOB_TAG)
                         .setLifetime(Lifetime.FOREVER)
+                        .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                         .setTrigger(Trigger.executionWindow(seconds, seconds + TIMEOUT_IN_SECONDS))
                         .build();
         firebaseJobDispatcher.mustSchedule(job);

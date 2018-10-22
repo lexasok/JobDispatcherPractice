@@ -11,7 +11,7 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name_not_alarm"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -33,7 +33,9 @@
         </service>
         <service
             android:name=".services.AlarmService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:process=":alarmProcess"
+            android:isolatedProcess="true"/>
     </application>
 
 </manifest>

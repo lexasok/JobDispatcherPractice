@@ -9,6 +9,7 @@ import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
 import net.ozero.jobdispatcherpractice.services.activities.MainActivity;
@@ -19,7 +20,8 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
+        setAlarm(intent.getIntExtra(MainActivity.EXTRA_TIME, 0));
+        return START_STICKY;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class AlarmService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private void setAlarm() {
+    private void setAlarm(int seconds) {
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(
                 new GooglePlayDriver(this));
 
@@ -37,9 +39,10 @@ public class AlarmService extends Service {
         Job job =
                 firebaseJobDispatcher.newJobBuilder()
                         .setService(AlarmJobService.class)
-                        .setTag("123555553233")
+                        .setTag(MainActivity.JOB_TAG)
                         .setLifetime(Lifetime.FOREVER)
-                        .setTrigger(Trigger.executionWindow(MainActivity.TIMEOUT_IN_SECONDS, MainActivity.TIMEOUT_IN_SECONDS + 1))
+                        .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                        .setTrigger(Trigger.executionWindow(seconds, seconds + MainActivity.TIMEOUT_IN_SECONDS))
                         .build();
 
         firebaseJobDispatcher.mustSchedule(job);
