@@ -21,15 +21,23 @@ import net.ozero.jobdispatcherpractice.R;
 import net.ozero.jobdispatcherpractice.services.AlarmJobService;
 import net.ozero.jobdispatcherpractice.services.AlarmService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     //preferences
     private static final String PREFERENCES_SESSION = "session";
     private static final String KEY_ID = "id";
-
-    public static final String JOB_TAG = "alarm_job";
-    public static final int TIMEOUT_IN_SECONDS = 5;
+    //extras
     public static final String EXTRA_TIME = "seconds";
+    public static final String EXTRA_ID = "id";
+    public static final String EXTRA_MESSAGE = "message";
+    //tags
+    public static final String JOB_TAG = "alarm_job";
+    //simple constants
+    public static final int TIMEOUT_IN_SECONDS = 5;
 
     private EditText mDelayInput;
     private Button mSetAlarmButton;
@@ -66,9 +74,19 @@ public class MainActivity extends AppCompatActivity {
         setJobInService(id, seconds);
     }
 
+    private String getMessage(int id, int seconds) {
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
+        String dateStr = dateFormat.format(date);
+
+        return "ID: " + id + "; DELAY: " + seconds + " sec; " + "Set in: " + dateStr;
+    }
+
     private  void  setJobInService(int id, int seconds) {
         Intent intent = new Intent(this, AlarmService.class);
+        intent.putExtra(EXTRA_ID, id);
         intent.putExtra(EXTRA_TIME, seconds);
+        intent.putExtra(EXTRA_MESSAGE, getMessage(id, seconds));
         startService(intent);
 
         Toast.makeText(this, "Alarm set, id: " + id, Toast.LENGTH_LONG).show();
