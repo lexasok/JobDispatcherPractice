@@ -30,15 +30,13 @@
         <service
             android:name=".services.AlarmJobService"
             android:exported="false"
-            android:process=":alarmProcess"
-            android:enabled="true">
+            >
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
         <service
             android:name=".services.AlarmService"
-            android:enabled="true"
             />
     </application>
 
