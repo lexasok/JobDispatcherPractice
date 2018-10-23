@@ -28,14 +28,15 @@ public class AlarmJobService extends JobService {
             NotificationCompat.Builder builder;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 builder = new NotificationCompat.Builder(
-                        this,"com.ozero.jobdispatcher.notificationchannel.alarm");
+                        this,"com.ozero.jobdispatcher.notificationchannel");
             } else {
                 builder = new NotificationCompat.Builder(this);
             }
             builder
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(getTitle(id, seconds))
-                    .setContentText(getMessage(setInTime));
+                    .setContentText(getMessage(setInTime))
+                    .setAutoCancel(false);
             Notification notification = builder.build();
 
             NotificationManager notificationManager =

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     "com.ozero.jobdispatcher.notificationchannel.alarm",
                     NotificationManager.IMPORTANCE_HIGH
             );
+            channel.setDescription("this is the test channel");
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             assert manager != null;
             manager.createNotificationChannel(channel);
