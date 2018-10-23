@@ -1,5 +1,7 @@
 package net.ozero.jobdispatcherpractice.services.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(getClass().getName(), "onCreate");
         initViews();
+        initNotificationChannel();
+    }
+
+    private void initNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    "com.ozero.jobdispatcher.notificationchannel",
+                    "com.ozero.jobdispatcher.notificationchannel.alarm",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+        }
     }
 
     private void initViews() {

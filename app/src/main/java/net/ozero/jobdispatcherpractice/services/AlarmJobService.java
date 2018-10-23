@@ -1,6 +1,7 @@
 package net.ozero.jobdispatcherpractice.services;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -24,11 +25,17 @@ public class AlarmJobService extends JobService {
             int seconds = extras.getInt(MainActivity.EXTRA_TIME);
             String setInTime = extras.getString(MainActivity.EXTRA_SET_IN_TIME);
 
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle(getTitle(id, seconds))
-                            .setContentText(getMessage(setInTime));
+            NotificationCompat.Builder builder;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                builder = new NotificationCompat.Builder(
+                        this,"com.ozero.jobdispatcher.notificationchannel.alarm");
+            } else {
+                builder = new NotificationCompat.Builder(this);
+            }
+            builder
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(getTitle(id, seconds))
+                    .setContentText(getMessage(setInTime));
             Notification notification = builder.build();
 
             NotificationManager notificationManager =
