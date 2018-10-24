@@ -1,7 +1,6 @@
 package net.ozero.jobdispatcherpractice.services;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
